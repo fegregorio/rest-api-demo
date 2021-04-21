@@ -13,12 +13,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Column(unique = true)
-    private String email;
-    @Column(unique = true)
-    private String cpf;
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate birthdate;
+    private @Column(unique = true) String email;
+    private @Column(unique = true) String cpf;
+    private @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthdate;
     private LocalDateTime createdAt = LocalDateTime.now();
 
 

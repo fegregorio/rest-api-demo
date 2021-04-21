@@ -11,20 +11,10 @@ import java.time.LocalDate;
 
 public class PersonDTO {
 
-    @NotBlank
-    private String name;
-
-    @NotBlank
-    @Email
-    private String email;
-
-    @NotBlank
-    @CPF
-    private String cpf;
-
-    @NotNull
-    @JsonFormat(pattern = "dd/MM/yyyy")
-    private LocalDate birthdate;
+    private @NotBlank String name;
+    private @NotBlank @Email String email;
+    private @NotBlank @CPF String cpf;
+    private @NotNull @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthdate;
 
 
     public Person toEntity() {

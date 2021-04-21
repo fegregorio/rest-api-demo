@@ -1,8 +1,8 @@
 package com.fegregorio.restapidemo.controllers;
 
-import com.fegregorio.restapidemo.dto.PersonDTO;
-import com.fegregorio.restapidemo.entities.Person;
-import com.fegregorio.restapidemo.repositories.PersonRepository;
+import com.fegregorio.restapidemo.dto.AddressDTO;
+import com.fegregorio.restapidemo.entities.Address;
+import com.fegregorio.restapidemo.repositories.AddressRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,19 +15,19 @@ import javax.validation.Valid;
 import java.net.URI;
 
 @RestController
-@RequestMapping("/person")
-public class PersonController {
+@RequestMapping("/address")
+public class AddressController {
 
     @Autowired
-    private PersonRepository repository;
+    private AddressRepository repository;
 
 
-    @PostMapping("/create")
-    public ResponseEntity<?> createUser(@Valid @RequestBody PersonDTO dto,
+    @PostMapping("/new-address")
+    public ResponseEntity<?> newAddress(@Valid @RequestBody AddressDTO dto,
                                         UriComponentsBuilder builder) {
-        Person person = dto.toEntity();
-        repository.save(person);
-        URI uri = builder.path("/person/{id}").buildAndExpand(person.getId()).toUri();
+        Address address = dto.toEntity();
+        repository.save(address);
+        URI uri = builder.path("/address/{id}").buildAndExpand(address.getId()).toUri();
         return ResponseEntity.created(uri).build();
     }
 }

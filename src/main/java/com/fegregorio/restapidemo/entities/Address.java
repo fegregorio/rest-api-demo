@@ -1,9 +1,8 @@
 package com.fegregorio.restapidemo.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fegregorio.restapidemo.dto.AddressResponseDTO;
+
+import javax.persistence.*;
 
 @Entity
 public class Address {
@@ -18,14 +17,14 @@ public class Address {
     private String city;
     private String state;
     private String zipCode;
+    private @ManyToOne Person person;
 
 
     @Deprecated
     public Address() {}
 
-
     public Address(String street, int number, String addOn, String district,
-                   String city, String state, String zipCode) {
+                   String city, String state, String zipCode, Person person) {
         this.street = street;
         this.number = number;
         this.addOn = addOn;
@@ -33,6 +32,12 @@ public class Address {
         this.city = city;
         this.state = state;
         this.zipCode = zipCode;
+        this.person = person;
+    }
+
+
+    public AddressResponseDTO toResponse() {
+        return new AddressResponseDTO(street, number, addOn, district, city, state, zipCode);
     }
 
     public Long getId() { return id; }

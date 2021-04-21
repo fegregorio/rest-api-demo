@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Person {
@@ -17,6 +18,7 @@ public class Person {
     private @Column(unique = true) String cpf;
     private @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthdate;
     private LocalDateTime createdAt = LocalDateTime.now();
+    private @OneToMany(mappedBy = "person") List<Address> addresses;
 
 
     @Deprecated

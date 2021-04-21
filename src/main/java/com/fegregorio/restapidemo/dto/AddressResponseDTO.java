@@ -3,7 +3,7 @@ package com.fegregorio.restapidemo.dto;
 public class AddressResponseDTO {
 
     private String street;
-    private Integer number;
+    private String number;
     private String addOn;
     private String district;
     private String city;
@@ -11,7 +11,7 @@ public class AddressResponseDTO {
     private String zipCode;
 
 
-    public AddressResponseDTO(String street, Integer number, String addOn, String district,
+    public AddressResponseDTO(String street, String number, String addOn, String district,
                               String city, String state, String zipCode) {
         this.street = street;
         this.number = number;
@@ -25,7 +25,7 @@ public class AddressResponseDTO {
     public String getStreet() {
         return street;
     }
-    public Integer getNumber() {
+    public String getNumber() {
         return number;
     }
     public String getAddOn() {

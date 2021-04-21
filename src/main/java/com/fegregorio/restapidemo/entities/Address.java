@@ -11,7 +11,7 @@ public class Address {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String street;
-    private Integer number;
+    private String number;
     private String addOn;
     private String district;
     private String city;
@@ -23,7 +23,7 @@ public class Address {
     @Deprecated
     public Address() {}
 
-    public Address(String street, int number, String addOn, String district,
+    public Address(String street, String number, String addOn, String district,
                    String city, String state, String zipCode, Person person) {
         this.street = street;
         this.number = number;

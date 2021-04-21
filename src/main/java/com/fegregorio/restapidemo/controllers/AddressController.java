@@ -3,6 +3,7 @@ package com.fegregorio.restapidemo.controllers;
 import com.fegregorio.restapidemo.dto.AddressDTO;
 import com.fegregorio.restapidemo.dto.AddressResponseDTO;
 import com.fegregorio.restapidemo.entities.Address;
+import com.fegregorio.restapidemo.exceptions.ErrorMessages;
 import com.fegregorio.restapidemo.repositories.AddressRepository;
 import com.fegregorio.restapidemo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +39,11 @@ public class AddressController {
     public ResponseEntity<?> listAddresses(@PathVariable Long id) {
         List<AddressResponseDTO> responseList = addressRepository.findByPersonId(id)
                 .stream().map(Address::toResponse).collect(Collectors.toList());
+
+        if (responseList.isEmpty()) {
+            return ResponseEntity.ok().body(ErrorMessages.EMPTY_RESPONSE_LIST_MESSAGE.getMessage());
+        }
+
         return ResponseEntity.ok().body(responseList);
     }
 }

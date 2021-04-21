@@ -2,14 +2,27 @@ package com.fegregorio.restapidemo.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fegregorio.restapidemo.entities.Person;
+import org.hibernate.validator.constraints.br.CPF;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 public class PersonDTO {
 
+    @NotBlank
     private String name;
+
+    @NotBlank
+    @Email
     private String email;
+
+    @NotBlank
+    @CPF
     private String cpf;
+
+    @NotNull
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
 

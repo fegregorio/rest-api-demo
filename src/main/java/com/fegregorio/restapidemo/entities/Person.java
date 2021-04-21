@@ -2,10 +2,7 @@ package com.fegregorio.restapidemo.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -16,7 +13,9 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    @Column(unique = true)
     private String email;
+    @Column(unique = true)
     private String cpf;
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate birthdate;
@@ -32,4 +31,6 @@ public class Person {
         this.cpf = cpf;
         this.birthdate = birthdate;
     }
+
+    public Long getId() { return id; }
 }

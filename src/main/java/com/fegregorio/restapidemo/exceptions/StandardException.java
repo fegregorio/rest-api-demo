@@ -12,7 +12,5 @@ public class StandardException {
     }
 
 
-    public List<String> getMessages() {
-        return messages;
-    }
+    public List<String> getMessages() { return messages; }
 }

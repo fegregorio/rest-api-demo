@@ -1,6 +1,7 @@
 package com.fegregorio.restapidemo.entities;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fegregorio.restapidemo.dto.PersonResponseDTO;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -14,8 +15,8 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    private @Column(unique = true) String email;
-    private @Column(unique = true) String cpf;
+    private String email;
+    private String cpf;
     private @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthdate;
     private LocalDateTime createdAt = LocalDateTime.now();
     private @OneToMany(mappedBy = "person") List<Address> addresses;
@@ -29,6 +30,11 @@ public class Person {
         this.email = email;
         this.cpf = cpf;
         this.birthdate = birthdate;
+    }
+
+
+    public PersonResponseDTO toResponse() {
+        return new PersonResponseDTO(name, email, cpf, birthdate);
     }
 
     public Long getId() { return id; }

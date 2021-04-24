@@ -7,12 +7,11 @@ import com.fegregorio.restapidemo.exceptions.ErrorMessages;
 import com.fegregorio.restapidemo.repositories.AddressRepository;
 import com.fegregorio.restapidemo.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.util.UriComponentsBuilder;
 
 import javax.validation.Valid;
-import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,21 +26,25 @@ public class AddressController {
 
 
     @PostMapping("/new-address")
-    public ResponseEntity<?> newAddress(@Valid @RequestBody AddressDTO dto,
-                                        UriComponentsBuilder builder) {
+    public ResponseEntity<?> newAddress(@Valid @RequestBody AddressDTO dto) {
+
         Address address = dto.toEntity(personRepository);
         addressRepository.save(address);
-        URI uri = builder.path("/address/{id}").buildAndExpand(address.getId()).toUri();
-        return ResponseEntity.created(uri).build();
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(dto);
     }
 
     @GetMapping("/person/{id}")
     public ResponseEntity<?> listAddresses(@PathVariable Long id) {
-        List<AddressResponseDTO> responseList = addressRepository.findByPersonId(id)
-                .stream().map(Address::toResponse).collect(Collectors.toList());
+
+        List<AddressResponseDTO> responseList = addressRepository
+                .findByPersonId(id)
+                .stream()
+                .map(Address::toResponse)
+                .collect(Collectors.toList());
 
         if (responseList.isEmpty()) {
-            return ResponseEntity.ok().body(ErrorMessages.EMPTY_RESPONSE_LIST_MESSAGE.getMessage());
+            return ResponseEntity.ok().body(ErrorMessages.EMPTY_RESPONSE_LIST.getMessage());
         }
 
         return ResponseEntity.ok().body(responseList);

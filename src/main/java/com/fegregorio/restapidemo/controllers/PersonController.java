@@ -27,7 +27,7 @@ public class PersonController {
 
 
     @PostMapping("/create")
-    public ResponseEntity<?> createUser(@Valid @RequestBody PersonDTO dto) {
+    public ResponseEntity<?> createProfile(@Valid @RequestBody PersonDTO dto) {
         Person person = dto.toEntity();
 
         if (!repository.findByCpf(dto.getCpf()).isEmpty()) {

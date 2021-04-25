@@ -37,15 +37,8 @@ public class ControllerAdvice {
         List<String> errors = e.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(error -> error.getField() + ": " + messageSource.getMessage(error, Locale.getDefault()))
+                .map(error -> error.getField() + " " + messageSource.getMessage(error, Locale.getDefault()))
                 .collect(Collectors.toList());
         return new StandardException(errors);
-    }
-
-    @ExceptionHandler(ConstraintViolationException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public StandardException constraintViolationExceptionHandler(ConstraintViolationException e) {
-
-        return new StandardException(Collections.singletonList(e.getConstraintName()));
     }
 }

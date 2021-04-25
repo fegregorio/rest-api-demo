@@ -17,7 +17,7 @@ public class Person {
     private String name;
     private String email;
     private String cpf;
-    private @JsonFormat(pattern = "dd/MM/yyyy") LocalDate birthdate;
+    private LocalDate birthdate;
     private LocalDateTime createdAt = LocalDateTime.now();
     private @OneToMany(mappedBy = "person") List<Address> addresses;
 

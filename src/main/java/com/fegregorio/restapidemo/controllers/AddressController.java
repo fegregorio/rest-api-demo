@@ -19,10 +19,15 @@ import java.util.stream.Collectors;
 @RequestMapping("/address")
 public class AddressController {
 
+    private final AddressRepository addressRepository;
+    private final PersonRepository personRepository;
+
+
     @Autowired
-    private AddressRepository addressRepository;
-    @Autowired
-    private PersonRepository personRepository;
+    public AddressController(AddressRepository addressRepository, PersonRepository personRepository) {
+        this.addressRepository = addressRepository;
+        this.personRepository = personRepository;
+    }
 
 
     @PostMapping("/new-address")

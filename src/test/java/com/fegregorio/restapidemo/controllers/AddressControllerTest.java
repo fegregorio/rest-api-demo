@@ -12,7 +12,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -40,8 +39,9 @@ public class AddressControllerTest {
         });
     }
 
+    @DisplayName("Should return a Person's address list")
     @Test
-    void test() { // is bugged
+    void shouldReturnAPersonsAddressList() {
 
         Address address = mock(Address.class);
         AddressResponseDTO responseDTO = mock(AddressResponseDTO.class);
@@ -49,44 +49,12 @@ public class AddressControllerTest {
         List<Address> addressList = List.of(address);
         List<AddressResponseDTO> responseList = List.of(responseDTO);
 
-        when(addressRepository
-                .findByPersonId(any())
-                .stream()
-                .map(Address::toResponse)
-                .collect(Collectors.toList()))
-                .thenReturn(responseList);
+        when(addressRepository.findByPersonId(any())).thenReturn(addressList);
+        when(address.toResponse()).thenReturn(responseDTO);
 
-        ResponseEntity<?> responseEntity = addressController.listAddresses(1L);
-
-        Assertions.assertEquals(
-                ResponseEntity.ok().body(responseList), responseEntity
-        );
-    }
-
-    private Address mockAddress() {
-
-        return new Address(
-                "street",
-                "number",
-                "addOn",
-                "district",
-                "city",
-                "state",
-                "zipCode",
-                null
-        );
-    }
-
-    private AddressResponseDTO mockAddressResponse() {
-
-        return new AddressResponseDTO(
-                "street",
-                "number",
-                "addOn",
-                "district",
-                "city",
-                "state",
-                "zipCode"
-        );
+        Assertions.assertDoesNotThrow(() -> {
+            ResponseEntity<?> responseEntity = addressController.listAddresses(1L);
+            Assertions.assertEquals(ResponseEntity.ok().body(responseList), responseEntity);
+        });
     }
 }
